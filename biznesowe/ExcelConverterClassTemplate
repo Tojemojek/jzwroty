@@ -1,0 +1,38 @@
+package pl.kostrowski.doka.jzwroty.converters.excel;
+
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.springframework.stereotype.Service;
+import pl.kostrowski.doka.jzwroty.model.excel.CLASS_NAME_PLACEHOLDER;
+
+import java.time.LocalDate;
+import java.util.LinkedList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import static pl.kostrowski.doka.jzwroty.service.excel.ParseFromExcelHelper.*;
+
+@Service
+public class ConvertCLASS_NAME_PLACEHOLDER {
+
+    public List<CLASS_NAME_PLACEHOLDER> convert(Map<String, Integer> columnNumbers, Sheet sheet){
+
+        int lastRowNum = sheet.getLastRowNum();
+        List<CLASS_NAME_PLACEHOLDER> results = new LinkedList<>();
+        Iterator<Row> rowIterator = sheet.rowIterator();
+        //aby uniknąć konwertowania wiersza nagłówka
+		Row currentRow = rowIterator.next();
+
+        while (rowIterator.hasNext()) {
+			currentRow = rowIterator.next();
+            CLASS_NAME_PLACEHOLDER result = new CLASS_NAME_PLACEHOLDER();
+
+WORK_IS_DONE_HERE
+            results.add(result);
+        }
+            
+        return results;
+    }
+
+}

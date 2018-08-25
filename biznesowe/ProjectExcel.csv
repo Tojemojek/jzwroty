@@ -1,0 +1,9 @@
+ColumnNameInFile,FieldNameInClass,OriginalType,JavaType
+Project leading Branch,projectLeadingBranch,String,String
+Rental Project,rentalProjectNumber,String,String
+Description,rentalProjectName,String,String
+Job Site,jobSiteNumber,String,String
+Customer account,customerNumber,String,String
+Name,customerName,String,String
+Sales man - Commission,salesManCommissionDivision,String,String
+Sales man - Turnover,salesManTurnoverDivision,String,String

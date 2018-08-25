@@ -1,0 +1,3 @@
+ColumnNameInFile,FieldNameInClass,OriginalType,JavaType
+Main Productgroup,mainProductGroupCode,String,String
+Text,mainProductGroupText,String,String

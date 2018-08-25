@@ -1,0 +1,3 @@
+ColumnNameInFile,FieldNameInClass,OriginalType,JavaType
+SalesmanCode,salesmanCode,String,String,
+SalesmanName,SalesmanName,String,String,

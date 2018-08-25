@@ -1,0 +1,17 @@
+ColumnNameInFile,FieldNameInClass,OriginalType,JavaType
+Rental Project,rentalProjectNumber,String,String
+Description,rentalProjectName,String,String
+Job Site,jobSiteNumber,String,String
+Description2,jobSiteName,String,String
+Project leading Branch,projectLeadingBranch,String,String
+Customer account,customerNumber,String,String
+Name,customerName,String,String
+Main Productgroup,mainProductGroupCode,String,String
+Item No.,itemNumber,String,String
+Text,itemName,String,String
+Type of Business (Rental/Sale),businessType,String,String
+Quantity,quantity,Double,Double
+material value per unit,materialValuePerUnit,Double,Double
+Total weight,totalWeight,Double,Double
+Planned return date,plannedReturnDate,LocalDate,LocalDate
+Current planned return date,currentPlannedReturnDate,LocalDate,LocalDate
