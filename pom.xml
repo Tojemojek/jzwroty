@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>pl.kostrowski.doka</groupId>
+    <artifactId>jzwroty</artifactId>
+    <version>${version.app}</version>
+    <packaging>jar</packaging>
+
+    <name>jZwroty</name>
+    <description>Kreator plików do obsługi planowanych zwrotów</description>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.2.RELEASE</version>
+        <relativePath/>
+    </parent>
+
+    <properties>
+        <version.app>0.0.1-SNAPSHOT</version.app>
+        <version.spring.boot.starter.actuator>2.0.2.RELEASE</version.spring.boot.starter.actuator>
+        <version.spring.boot.starter.thymeleaf>2.0.2.RELEASE</version.spring.boot.starter.thymeleaf>
+        <version.spring.boot.starter.web>2.0.2.RELEASE</version.spring.boot.starter.web>
+        <version.spring.boot.starter.data.jpa>2.0.2.RELEASE</version.spring.boot.starter.data.jpa>
+        <version.spring.boot.starter.test>2.0.2.RELEASE</version.spring.boot.starter.test>
+        <version.h2>1.4.197</version.h2>
+        <version.lombok>1.18.0</version.lombok>
+        <version.bootstrap>4.1.0</version.bootstrap>
+        <version.jquery>3.0.0</version.jquery>
+        <version.apache.poi>3.17</version.apache.poi>
+        <version.apache.poi>3.17</version.apache.poi>
+        <version.apache.poi.ooxml>3.17</version.apache.poi.ooxml>
+        <version.apache.commons.io>2.6</version.apache.commons.io>
+        <version.apache.commons.lang>3.7</version.apache.commons.lang>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+            <version>${version.spring.boot.starter.actuator}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            <version>${version.spring.boot.starter.thymeleaf}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>${version.spring.boot.starter.web}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <version>${version.spring.boot.starter.data.jpa}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${version.h2}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${version.lombok}</version>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>${version.spring.boot.starter.test}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>${version.bootstrap}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>${version.jquery}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>${version.apache.poi}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>${version.apache.poi.ooxml}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${version.apache.commons.io}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${version.apache.commons.lang}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>
