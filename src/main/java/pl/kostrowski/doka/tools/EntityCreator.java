@@ -1,10 +1,5 @@
 package pl.kostrowski.doka.tools;
 
-import org.apache.commons.lang3.StringUtils;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.util.LinkedList;
 import java.util.List;
 
 public class EntityCreator {
@@ -17,11 +12,11 @@ public class EntityCreator {
         List<String> fileNames = mappingUtil.getFileNames();
 
         //regenerating ExcelModelFiles
-        for (String fileName : fileNames) {
-            mappingUtil.createFromExcelEntity(fileName);
-        }
+//        for (String fileName : fileNames) {
+//            mappingUtil.createFromExcelEntity(fileName);
+//        }
         //regenerating ExcelColumnMappings
-        mappingUtil.createColumnMappingFromExcel(fileNames);
+//        mappingUtil.createColumnMappingFromExcel(fileNames);
 
         //regenerating ExcelConverters
         mappingUtil.createConverterClassesFromExcel(fileNames);

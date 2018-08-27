@@ -9,4 +9,5 @@ public class JZwrotyApplication {
     public static void main(String[] args) {
         SpringApplication.run(JZwrotyApplication.class, args);
     }
+
 }

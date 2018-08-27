@@ -2,42 +2,49 @@ package pl.kostrowski.doka.jzwroty.converters.excel;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Service;
+import pl.kostrowski.doka.jzwroty.mappings.MyMappings;
 import pl.kostrowski.doka.jzwroty.model.excel.SalesmanExcel;
+import pl.kostrowski.doka.jzwroty.service.excel.ParseFromExcelHelper;
 
-import java.time.LocalDate;
-import java.util.LinkedList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import static pl.kostrowski.doka.jzwroty.service.excel.ParseFromExcelHelper.*;
+import static pl.kostrowski.doka.jzwroty.service.excel.ParseFromExcelHelper.parseStringFromCell;
 
 @Service
 public class ConvertSalesmanExcel {
 
-    public List<SalesmanExcel> convert(Map<String, Integer> columnNumbers, Sheet sheet){
+    private MyMappings myMappings = MyMappings.getInstance();
 
-        int lastRowNum = sheet.getLastRowNum();
+    public List<SalesmanExcel> convert(Workbook workbook, String worksheetName) {
+
+        Sheet sheet = workbook.getSheet(worksheetName);
+        Map<String, String> excelColumns = myMappings.getSalesmanExcelColumns();
+
         List<SalesmanExcel> results = new LinkedList<>();
         Iterator<Row> rowIterator = sheet.rowIterator();
-        //aby uniknąć konwertowania wiersza nagłówka
-		Row currentRow = rowIterator.next();
+
+        Row currentRow = rowIterator.next();
+        Map<String, Integer> columnNumbers = ParseFromExcelHelper.findColumnNumbers(excelColumns, currentRow);
 
         while (rowIterator.hasNext()) {
-			currentRow = rowIterator.next();
+            currentRow = rowIterator.next();
             SalesmanExcel result = new SalesmanExcel();
 
-			String salesmanCodeTmp = parseStringFromCell(currentRow.getCell(columnNumbers.get("salesmanCode")));
-			result.setSalesmanCode(salesmanCodeTmp);
+            String salesmanCodeTmp = parseStringFromCell(currentRow.getCell(columnNumbers.get("salesmanCode")));
+            result.setSalesmanCode(salesmanCodeTmp);
 
-			String SalesmanNameTmp = parseStringFromCell(currentRow.getCell(columnNumbers.get("SalesmanName")));
-			result.setSalesmanName(SalesmanNameTmp);
+            String SalesmanNameTmp = parseStringFromCell(currentRow.getCell(columnNumbers.get("SalesmanName")));
+            result.setSalesmanName(SalesmanNameTmp);
 
 
             results.add(result);
         }
-            
+
         return results;
     }
 

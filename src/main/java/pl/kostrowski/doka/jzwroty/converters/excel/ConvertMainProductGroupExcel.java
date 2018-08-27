@@ -2,27 +2,34 @@ package pl.kostrowski.doka.jzwroty.converters.excel;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Service;
+import pl.kostrowski.doka.jzwroty.mappings.MyMappings;
 import pl.kostrowski.doka.jzwroty.model.excel.MainProductGroupExcel;
+import pl.kostrowski.doka.jzwroty.service.excel.ParseFromExcelHelper;
 
-import java.time.LocalDate;
-import java.util.LinkedList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import static pl.kostrowski.doka.jzwroty.service.excel.ParseFromExcelHelper.*;
+import static pl.kostrowski.doka.jzwroty.service.excel.ParseFromExcelHelper.parseStringFromCell;
 
 @Service
 public class ConvertMainProductGroupExcel {
 
-    public List<MainProductGroupExcel> convert(Map<String, Integer> columnNumbers, Sheet sheet){
+    private MyMappings myMappings = MyMappings.getInstance();
 
-        int lastRowNum = sheet.getLastRowNum();
+    public List<MainProductGroupExcel> convert(Workbook workbook, String worksheetName) {
+
+        Sheet sheet = workbook.getSheet(worksheetName);
+        Map<String, String> excelColumns = myMappings.getMainProductGroupExcelColumns();
+
         List<MainProductGroupExcel> results = new LinkedList<>();
         Iterator<Row> rowIterator = sheet.rowIterator();
-        //aby uniknąć konwertowania wiersza nagłówka
+
 		Row currentRow = rowIterator.next();
+        Map<String, Integer> columnNumbers = ParseFromExcelHelper.findColumnNumbers(excelColumns, currentRow);
 
         while (rowIterator.hasNext()) {
 			currentRow = rowIterator.next();
