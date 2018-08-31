@@ -23,15 +23,14 @@ public class MyMappings {
 
 
 	{
-	salesmanExcelColumns.put("ColumnNameInFile","FieldNameInClass");
 	salesmanExcelColumns.put("SalesmanCode","salesmanCode");
-	salesmanExcelColumns.put("SalesmanName","SalesmanName");
+		salesmanExcelColumns.put("SalesmanName", "salesmanName");
+		salesmanExcelColumns.put("SalesmanBranch", "salesmanBranch");
 
 	invertedSalesmanExcelColumns = salesmanExcelColumns.entrySet()
 		.stream()
 		.collect(Collectors.toMap(Map.Entry::getValue, Map.Entry::getKey));
 
-	projectExcelColumns.put("ColumnNameInFile","FieldNameInClass");
 	projectExcelColumns.put("Project leading Branch","projectLeadingBranch");
 	projectExcelColumns.put("Rental Project","rentalProjectNumber");
 	projectExcelColumns.put("Description","rentalProjectName");
@@ -45,7 +44,6 @@ public class MyMappings {
 		.stream()
 		.collect(Collectors.toMap(Map.Entry::getValue, Map.Entry::getKey));
 
-	mainProductGroupExcelColumns.put("ColumnNameInFile","FieldNameInClass");
 	mainProductGroupExcelColumns.put("Main Productgroup","mainProductGroupCode");
 	mainProductGroupExcelColumns.put("Text","mainProductGroupText");
 
@@ -53,7 +51,6 @@ public class MyMappings {
 		.stream()
 		.collect(Collectors.toMap(Map.Entry::getValue, Map.Entry::getKey));
 
-	discosExcelColumns.put("ColumnNameInFile","FieldNameInClass");
 	discosExcelColumns.put("Rental Project","rentalProjectNumber");
 	discosExcelColumns.put("Description","rentalProjectName");
 	discosExcelColumns.put("Job Site","jobSiteNumber");

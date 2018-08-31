@@ -9,11 +9,14 @@ import org.springframework.stereotype.Service;
 import pl.kostrowski.doka.jzwroty.converters.excel.ConvertDiscosExcel;
 import pl.kostrowski.doka.jzwroty.converters.exceldb.ConvertDiscos;
 import pl.kostrowski.doka.jzwroty.dao.DiscosDao;
+import pl.kostrowski.doka.jzwroty.exceptions.DataProblemException;
 import pl.kostrowski.doka.jzwroty.model.db.DiscosData;
 import pl.kostrowski.doka.jzwroty.model.excel.DiscosExcel;
 
 import java.io.File;
 import java.util.List;
+
+import static pl.kostrowski.doka.jzwroty.koconfig.ReadExternalProperties.*;
 
 @Service
 public class PersitDiscos {
@@ -24,8 +27,6 @@ public class PersitDiscos {
     private ConvertDiscosExcel convertDiscosExcel;
     private DiscosDao discosDao;
 
-    final String WORKSHEET_WITH_DATA_NAME = "Dane";
-
     @Autowired
     public PersitDiscos(ConvertDiscos convertDiscos, ConvertDiscosExcel convertDiscosExcel, DiscosDao discosDao) {
         this.convertDiscos = convertDiscos;
@@ -33,12 +34,13 @@ public class PersitDiscos {
         this.discosDao = discosDao;
     }
 
-    public void persist() {
+    public void persist(String folderName) {
         try {
-            File inputFile = new File("./pliki/04_input_material_on_site.xlsx");
+            String path = "." + File.separator + getFileSaveFolder() + File.separator + folderName + File.separator + getDiscosDataFileName();
+            File inputFile = new File(path);
             LOG.info("Przetwarzam plik " + inputFile.getName());
             Workbook projectWorkbook = new XSSFWorkbook(inputFile);
-            List<DiscosExcel> discosExcels = convertDiscosExcel.convert(projectWorkbook, WORKSHEET_WITH_DATA_NAME);
+            List<DiscosExcel> discosExcels = convertDiscosExcel.convert(projectWorkbook, getDiscosDataSheetName());
             List<DiscosData> convert = convertDiscos.convert(discosExcels);
             LOG.info("Znaleziono " + convert.size() + " unikalnych linii z danymi");
             discosDao.saveAll(convert);
@@ -46,6 +48,7 @@ public class PersitDiscos {
             projectWorkbook.close();
         } catch (Exception e) {
             e.printStackTrace();
+            throw new DataProblemException("Jest problem z danymi w pliku z danymi Handlowców");
             //Todo implement if workbooks cant be opened
         }
     }

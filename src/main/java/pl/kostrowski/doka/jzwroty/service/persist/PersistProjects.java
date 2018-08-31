@@ -15,6 +15,8 @@ import pl.kostrowski.doka.jzwroty.model.excel.ProjectExcel;
 import java.io.File;
 import java.util.List;
 
+import static pl.kostrowski.doka.jzwroty.koconfig.ReadExternalProperties.*;
+
 @Service
 public class PersistProjects {
 
@@ -24,7 +26,7 @@ public class PersistProjects {
     private ConvertProject convertProject;
     private ProjectDao projectDao;
 
-    private final String WORKSHEET_WITH_DATA_NAME = "Dane";
+
 
     @Autowired
     public PersistProjects(ConvertProjectExcel convertProjectExcel, ConvertProject convertProjec, ProjectDao projectDao) {
@@ -33,12 +35,13 @@ public class PersistProjects {
         this.projectDao = projectDao;
     }
 
-    public void persist() {
+    public void persist(String folderName) {
         try {
-            File inputFile = new File("./pliki/03_input_projects.xlsx");
+            String path = "." + File.separator + getFileSaveFolder() + File.separator + folderName + File.separator + getProjectFileName();
+            File inputFile = new File(path);
             LOG.info("Przetwarzam plik " + inputFile.getName());
             Workbook projectWorkbook = new XSSFWorkbook(inputFile);
-            List<ProjectExcel> projectExcels = convertProjectExcel.convert(projectWorkbook, WORKSHEET_WITH_DATA_NAME);
+            List<ProjectExcel> projectExcels = convertProjectExcel.convert(projectWorkbook, getProjectSheetName());
             List<ProjectDb> projectDb = convertProject.convert(projectExcels);
             LOG.info("Znaleziono " + projectDb.size() + " unikalnych projektów");
             projectDao.saveAll(projectDb);

@@ -18,10 +18,10 @@ public class CreatorTest {
     @Autowired
     Creator creator;
 
-    @Test
+    @Test()
     public void newFileCreationTest() {
-        saveAllExcelDataToDb.convertExcelToDb();
-        creator.createResultFile();
+        saveAllExcelDataToDb.convertExcelToDb("20180831");
+        creator.createResultFile("20180831");
     }
 
 }

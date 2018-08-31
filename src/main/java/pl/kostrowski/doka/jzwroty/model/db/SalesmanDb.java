@@ -14,6 +14,8 @@ public class SalesmanDb {
     @Id
     private String salesmanCode;
 
-    private String SalesmanName;
+    private String salesmanName;
+
+    private String branchName;
 
 }

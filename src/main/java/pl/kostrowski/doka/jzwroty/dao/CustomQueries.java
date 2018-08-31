@@ -29,7 +29,7 @@ public class CustomQueries {
         sb.append("mpg.MAIN_PRODUCT_GROUP_TEXT, ");
         sb.append("sum(dd.material_value_per_unit * dd.quantity), ");
         sb.append("sum(dd.total_weight), ");
-        sb.append("pts.COMMISION_PERCENTAGE, ");
+        sb.append("pts.commission_PERCENTAGE, ");
         sb.append("pts.TURNOVER_PERCENTAGE ");
         sb.append("from ");
         sb.append("discos_data dd ");

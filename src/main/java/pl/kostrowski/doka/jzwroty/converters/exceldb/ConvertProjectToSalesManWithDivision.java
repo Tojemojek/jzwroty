@@ -61,7 +61,7 @@ public class ConvertProjectToSalesManWithDivision {
             divisionId.setRentalProjectNumber(projectId);
 
             pts.setDivisionId(divisionId);
-            pts.setCommisionPercentage(commision.get(salesmnanId));
+            pts.setCommissionPercentage(commision.get(salesmnanId));
             pts.setTurnoverPercentage(turnover.get(salesmnanId));
 
             result.add(pts);

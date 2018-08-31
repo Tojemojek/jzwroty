@@ -15,11 +15,12 @@ import pl.kostrowski.doka.jzwroty.model.excel.SalesmanExcel;
 import java.io.File;
 import java.util.List;
 
+import static pl.kostrowski.doka.jzwroty.koconfig.ReadExternalProperties.*;
+
 @Service
 public class PersistSalesman {
 
     private final static Logger LOG = LoggerFactory.getLogger(PersistSalesman.class);
-    private final String WORKSHEET_WITH_DATA_NAME = "Dane";
     private ConvertSalesmanExcel convertSalesmanExcel;
     private ConvertSalesman convertSalesman;
     private SalesmanDao salesmanDao;
@@ -33,20 +34,18 @@ public class PersistSalesman {
 
     public void persist() {
         try {
-            File inputFile = new File("./pliki/01_salesman.xlsx");
+            String path = "." + File.separator + getFileSaveFolder() + File.separator + getCommonFileFolder() + File.separator + getSalesmanFileName();
+            File inputFile = new File(path);
             LOG.info("Przetwarzam plik " + inputFile.getName());
             Workbook salesmanWorkbook = new XSSFWorkbook(inputFile);
-            List<SalesmanExcel> salesmanExcel = convertSalesmanExcel.convert(salesmanWorkbook, WORKSHEET_WITH_DATA_NAME);
+            List<SalesmanExcel> salesmanExcel = convertSalesmanExcel.convert(salesmanWorkbook, getSalesmanSheetName());
             List<SalesmanDb> salesmanDb = convertSalesman.convert(salesmanExcel);
-            SalesmanDb fallbackSalesman = new SalesmanDb();
-            fallbackSalesman.setSalesmanCode("PL-0");
-            fallbackSalesman.setSalesmanName("NN");
-            salesmanDb.add(fallbackSalesman);
             LOG.info("Znaleziono " + salesmanDb.size() + " unikalnych handlowców");
             salesmanDao.saveAll(salesmanDb);
             salesmanDao.flush();
             salesmanWorkbook.close();
         } catch (Exception e) {
+            e.printStackTrace();
             //Todo implement if workbooks cant be opened
         }
     }

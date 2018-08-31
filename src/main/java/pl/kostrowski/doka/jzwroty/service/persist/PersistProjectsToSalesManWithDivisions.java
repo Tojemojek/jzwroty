@@ -16,6 +16,8 @@ import javax.transaction.Transactional;
 import java.io.File;
 import java.util.List;
 
+import static pl.kostrowski.doka.jzwroty.koconfig.ReadExternalProperties.*;
+
 @Service
 @Transactional
 public class PersistProjectsToSalesManWithDivisions {
@@ -37,12 +39,12 @@ public class PersistProjectsToSalesManWithDivisions {
     }
 
 
-    public void persist() {
+    public void persist(String folderName) {
         try {
-            File inputFile = new File("./pliki/03_input_projects.xlsx");
-            LOG.info("Przetwarzam plik " + inputFile.getName());
+            String path = "." + File.separator + getFileSaveFolder() + File.separator + folderName + File.separator + getProjectFileName();
+            File inputFile = new File(path);
             Workbook projectWorkbook = new XSSFWorkbook(inputFile);
-            List<ProjectExcel> projectExcels = convertProjectExcel.convert(projectWorkbook, WORKSHEET_WITH_DATA_NAME);
+            List<ProjectExcel> projectExcels = convertProjectExcel.convert(projectWorkbook, getProjectSheetName());
             List<ProjectToSalesManWithDivision> convert = convertProjectToSalesManWithDivision.convert(projectExcels);
             LOG.info("Znaleziono " + convert.size() + " unikalnych podziałów marży i obrotu");
             projectToSalesManWithDivisionDao.saveAll(convert);

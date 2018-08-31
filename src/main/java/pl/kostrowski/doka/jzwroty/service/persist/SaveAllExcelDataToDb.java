@@ -26,11 +26,11 @@ public class SaveAllExcelDataToDb {
         this.persistMainProductGroup = persistMainProductGroup;
     }
 
-    public void convertExcelToDb() {
+    public void convertExcelToDb(String folderName) {
         persistSalesman.persist();
         persistMainProductGroup.persist();
-        persistProjects.persist();
-        persistProjectsToSalesManWithDivisions.persist();
-        persitDiscos.persist();
+        persistProjects.persist(folderName);
+        persistProjectsToSalesManWithDivisions.persist(folderName);
+        persitDiscos.persist(folderName);
     }
 }

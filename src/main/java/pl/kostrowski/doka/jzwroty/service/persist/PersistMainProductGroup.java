@@ -15,11 +15,12 @@ import pl.kostrowski.doka.jzwroty.model.excel.MainProductGroupExcel;
 import java.io.File;
 import java.util.List;
 
+import static pl.kostrowski.doka.jzwroty.koconfig.ReadExternalProperties.*;
+
 @Service
 public class PersistMainProductGroup {
 
     private final static Logger LOG = LoggerFactory.getLogger(PersistMainProductGroup.class);
-    private final String WORKSHEET_WITH_DATA_NAME = "Dane";
     private ConvertMainProductGroupExcel convertMainProductGroupExcel;
     private ConvertMainProductGroup convertMainProductGroup;
     private MainProductGroupDao mainProductGroupDao;
@@ -34,10 +35,11 @@ public class PersistMainProductGroup {
 
     public void persist() {
         try {
-            File inputFile = new File("./pliki/02_main_product_group.xlsx");
+            String path = "." + File.separator + getFileSaveFolder() + File.separator + getCommonFileFolder() + File.separator + getMpgFileName();
+            File inputFile = new File(path);
             LOG.info("Przetwarzam plik " + inputFile.getName());
             Workbook projectWorkbook = new XSSFWorkbook(inputFile);
-            List<MainProductGroupExcel> mainProductGroupExcels = convertMainProductGroupExcel.convert(projectWorkbook, WORKSHEET_WITH_DATA_NAME);
+            List<MainProductGroupExcel> mainProductGroupExcels = convertMainProductGroupExcel.convert(projectWorkbook, getMpgSheetName());
             List<MainProductGroupDb> convert = convertMainProductGroup.convert(mainProductGroupExcels);
             LOG.info("Znaleziono " + convert.size() + " grup produktowych");
             mainProductGroupDao.saveAll(convert);

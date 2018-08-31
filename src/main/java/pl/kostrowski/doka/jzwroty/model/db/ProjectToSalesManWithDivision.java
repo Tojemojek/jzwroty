@@ -17,7 +17,7 @@ public class ProjectToSalesManWithDivision implements Serializable {
     @EmbeddedId
     private DivisionId divisionId;
 
-    private Double commisionPercentage;
+    private Double commissionPercentage;
 
     private Double turnoverPercentage;
 

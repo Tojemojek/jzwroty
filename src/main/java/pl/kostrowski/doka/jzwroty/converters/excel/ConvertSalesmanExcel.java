@@ -1,5 +1,6 @@
 package pl.kostrowski.doka.jzwroty.converters.excel;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -38,9 +39,20 @@ public class ConvertSalesmanExcel {
             String salesmanCodeTmp = parseStringFromCell(currentRow.getCell(columnNumbers.get("salesmanCode")));
             result.setSalesmanCode(salesmanCodeTmp);
 
-            String SalesmanNameTmp = parseStringFromCell(currentRow.getCell(columnNumbers.get("SalesmanName")));
-            result.setSalesmanName(SalesmanNameTmp);
+            String salesmanNameTmp = parseStringFromCell(currentRow.getCell(columnNumbers.get("salesmanName")));
+            result.setSalesmanName(salesmanNameTmp);
 
+            String salesmanBranch = parseStringFromCell(currentRow.getCell(columnNumbers.get("salesmanBranch")));
+            result.setBranchName(salesmanBranch);
+
+            if (salesmanCodeTmp == null
+                    || salesmanNameTmp == null
+                    || salesmanBranch == null
+                    || StringUtils.isBlank(salesmanCodeTmp)
+                    || StringUtils.isBlank(salesmanNameTmp)
+                    || StringUtils.isBlank(salesmanBranch)) {
+                continue;
+            }
 
             results.add(result);
         }

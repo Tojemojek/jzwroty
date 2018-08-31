@@ -23,6 +23,7 @@ public class ConvertSalesman {
             SalesmanDb salesmanDb = new SalesmanDb();
             salesmanDb.setSalesmanCode(salesmanExcel.getSalesmanCode());
             salesmanDb.setSalesmanName(salesmanExcel.getSalesmanName());
+            salesmanDb.setBranchName(salesmanExcel.getBranchName());
 
             LOG.trace(salesmanDb.toString());
 
