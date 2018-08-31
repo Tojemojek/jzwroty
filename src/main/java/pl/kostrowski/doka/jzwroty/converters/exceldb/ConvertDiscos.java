@@ -54,7 +54,7 @@ public class ConvertDiscos {
 
             result.add(discosData);
 
-            LOG.debug(discosData.toString());
+            LOG.trace(discosData.toString());
         }
         return result;
     }

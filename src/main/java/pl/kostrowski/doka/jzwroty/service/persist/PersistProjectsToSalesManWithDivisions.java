@@ -1,4 +1,4 @@
-package pl.kostrowski.doka.jzwroty.service.excel;
+package pl.kostrowski.doka.jzwroty.service.persist;
 
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -39,9 +39,12 @@ public class PersistProjectsToSalesManWithDivisions {
 
     public void persist() {
         try {
-            Workbook projectWorkbook = new XSSFWorkbook(new File("./pliki/03_input_projects.xlsx"));
+            File inputFile = new File("./pliki/03_input_projects.xlsx");
+            LOG.info("Przetwarzam plik " + inputFile.getName());
+            Workbook projectWorkbook = new XSSFWorkbook(inputFile);
             List<ProjectExcel> projectExcels = convertProjectExcel.convert(projectWorkbook, WORKSHEET_WITH_DATA_NAME);
             List<ProjectToSalesManWithDivision> convert = convertProjectToSalesManWithDivision.convert(projectExcels);
+            LOG.info("Znaleziono " + convert.size() + " unikalnych podziałów marży i obrotu");
             projectToSalesManWithDivisionDao.saveAll(convert);
             projectToSalesManWithDivisionDao.flush();
             projectWorkbook.close();

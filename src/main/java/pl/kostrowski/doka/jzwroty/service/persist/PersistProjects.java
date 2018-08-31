@@ -1,4 +1,4 @@
-package pl.kostrowski.doka.jzwroty.service.excel;
+package pl.kostrowski.doka.jzwroty.service.persist;
 
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -35,9 +35,12 @@ public class PersistProjects {
 
     public void persist() {
         try {
-            Workbook projectWorkbook = new XSSFWorkbook(new File("./pliki/03_input_projects.xlsx"));
+            File inputFile = new File("./pliki/03_input_projects.xlsx");
+            LOG.info("Przetwarzam plik " + inputFile.getName());
+            Workbook projectWorkbook = new XSSFWorkbook(inputFile);
             List<ProjectExcel> projectExcels = convertProjectExcel.convert(projectWorkbook, WORKSHEET_WITH_DATA_NAME);
             List<ProjectDb> projectDb = convertProject.convert(projectExcels);
+            LOG.info("Znaleziono " + projectDb.size() + " unikalnych projektów");
             projectDao.saveAll(projectDb);
             projectDao.flush();
             projectWorkbook.close();

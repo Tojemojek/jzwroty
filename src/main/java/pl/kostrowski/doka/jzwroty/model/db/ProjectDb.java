@@ -2,10 +2,7 @@ package pl.kostrowski.doka.jzwroty.model.db;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @Data
@@ -24,7 +21,7 @@ public class ProjectDb {
 
     private String projectLeadingBranch;
 
-    @OneToMany(mappedBy = "projectDb")
+    @OneToMany(mappedBy = "projectDb", fetch = FetchType.EAGER)
     private List<DiscosData> discosData;
 
     @Override

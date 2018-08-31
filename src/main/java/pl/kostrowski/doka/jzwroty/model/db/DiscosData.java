@@ -52,14 +52,9 @@ public class DiscosData {
                 "id=" + id +
                 ", jobSiteNumber='" + jobSiteNumber + '\'' +
                 ", jobSiteName='" + jobSiteName + '\'' +
-                ", customerNumber='" + customerNumber + '\'' +
-                ", customerName='" + customerName + '\'' +
-                ", mainProductGroupDb=" + mainProductGroupDb +
                 ", itemNumber='" + itemNumber + '\'' +
                 ", itemName='" + itemName + '\'' +
-                ", businessType='" + businessType + '\'' +
                 ", quantity=" + quantity +
-                ", materialValuePerUnit=" + materialValuePerUnit +
                 ", totalWeight=" + totalWeight +
                 ", plannedReturnDate=" + plannedReturnDate +
                 ", currentPlannedReturnDate=" + currentPlannedReturnDate +

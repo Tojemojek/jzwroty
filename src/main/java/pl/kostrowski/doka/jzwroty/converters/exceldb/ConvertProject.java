@@ -32,7 +32,7 @@ public class ConvertProject {
 
             result.add(projectDb);
 
-            LOG.debug(projectDb.toString());
+            LOG.trace(projectDb.toString());
         }
         return result;
     }

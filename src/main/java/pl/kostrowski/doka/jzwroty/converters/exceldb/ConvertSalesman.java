@@ -24,7 +24,7 @@ public class ConvertSalesman {
             salesmanDb.setSalesmanCode(salesmanExcel.getSalesmanCode());
             salesmanDb.setSalesmanName(salesmanExcel.getSalesmanName());
 
-            LOG.debug(salesmanDb.toString());
+            LOG.trace(salesmanDb.toString());
 
             result.add(salesmanDb);
         }

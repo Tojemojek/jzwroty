@@ -33,7 +33,7 @@ public class ConvertProjectToSalesManWithDivision {
 
             List<ProjectToSalesManWithDivision> projectToSalesManWithDivisions = parseCommissionAndTurnover(projectId, commisionDivision, turoverDivision);
 
-            LOG.debug(projectToSalesManWithDivisions.toString());
+            LOG.trace(projectToSalesManWithDivisions.toString());
 
             result.addAll(projectToSalesManWithDivisions);
         }

@@ -1,4 +1,4 @@
-package pl.kostrowski.doka.jzwroty.service.excel;
+package pl.kostrowski.doka.jzwroty.service.persist;
 
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -34,9 +34,12 @@ public class PersistMainProductGroup {
 
     public void persist() {
         try {
-            Workbook projectWorkbook = new XSSFWorkbook(new File("./pliki/02_main_product_group.xlsx"));
+            File inputFile = new File("./pliki/02_main_product_group.xlsx");
+            LOG.info("Przetwarzam plik " + inputFile.getName());
+            Workbook projectWorkbook = new XSSFWorkbook(inputFile);
             List<MainProductGroupExcel> mainProductGroupExcels = convertMainProductGroupExcel.convert(projectWorkbook, WORKSHEET_WITH_DATA_NAME);
             List<MainProductGroupDb> convert = convertMainProductGroup.convert(mainProductGroupExcels);
+            LOG.info("Znaleziono " + convert.size() + " grup produktowych");
             mainProductGroupDao.saveAll(convert);
             mainProductGroupDao.flush();
             projectWorkbook.close();

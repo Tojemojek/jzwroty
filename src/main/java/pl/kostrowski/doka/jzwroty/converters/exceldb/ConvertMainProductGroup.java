@@ -31,7 +31,7 @@ public class ConvertMainProductGroup {
 
             result.add(mainProductGroupDb);
 
-            LOG.debug(mainProductGroupDb.toString());
+            LOG.trace(mainProductGroupDb.toString());
         }
         return result;
     }

@@ -1,4 +1,4 @@
-package pl.kostrowski.doka.jzwroty.service.excel;
+package pl.kostrowski.doka.jzwroty.service.persist;
 
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -33,13 +33,16 @@ public class PersistSalesman {
 
     public void persist() {
         try {
-            Workbook salesmanWorkbook = new XSSFWorkbook(new File("./pliki/01_salesman.xlsx"));
+            File inputFile = new File("./pliki/01_salesman.xlsx");
+            LOG.info("Przetwarzam plik " + inputFile.getName());
+            Workbook salesmanWorkbook = new XSSFWorkbook(inputFile);
             List<SalesmanExcel> salesmanExcel = convertSalesmanExcel.convert(salesmanWorkbook, WORKSHEET_WITH_DATA_NAME);
             List<SalesmanDb> salesmanDb = convertSalesman.convert(salesmanExcel);
             SalesmanDb fallbackSalesman = new SalesmanDb();
             fallbackSalesman.setSalesmanCode("PL-0");
             fallbackSalesman.setSalesmanName("NN");
             salesmanDb.add(fallbackSalesman);
+            LOG.info("Znaleziono " + salesmanDb.size() + " unikalnych handlowców");
             salesmanDao.saveAll(salesmanDb);
             salesmanDao.flush();
             salesmanWorkbook.close();
