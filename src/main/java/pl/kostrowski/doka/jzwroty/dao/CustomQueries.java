@@ -25,6 +25,8 @@ public class CustomQueries {
         sb.append("dd.customer_name, ");
         sb.append("dd.project_number, ");
         sb.append("p.rental_project_name, ");
+        sb.append("dd.job_site_number, ");
+        sb.append("dd.job_site_name, ");
         sb.append("dd.main_product_group_code, ");
         sb.append("mpg.MAIN_PRODUCT_GROUP_TEXT, ");
         sb.append("sum(dd.material_value_per_unit * dd.quantity), ");
@@ -43,10 +45,13 @@ public class CustomQueries {
         sb.append("dd.customer_number, ");
         sb.append("dd.project_number, ");
         sb.append("p.rental_project_name, ");
+        sb.append("dd.job_site_number, ");
+        sb.append("dd.job_site_name, ");
         sb.append("dd.main_product_group_code ");
         sb.append("order by ");
         sb.append("dd.customer_number, ");
         sb.append("dd.project_number, ");
+        sb.append("dd.job_site_number, ");
         sb.append("dd.main_product_group_code ");
 
         String myQuery = sb.toString();
@@ -64,12 +69,10 @@ public class CustomQueries {
             projectLinesDto.setCustomerName((String) tempResult[i++]);
             projectLinesDto.setProjectNumber((String) tempResult[i++]);
             projectLinesDto.setProjectName((String) tempResult[i++]);
+            projectLinesDto.setSiteNumber((String) tempResult[i++]);
+            projectLinesDto.setSiteName((String) tempResult[i++]);
             projectLinesDto.setMainProductGroup((String) tempResult[i++]);
             projectLinesDto.setMainProductGroupName((String) tempResult[i++]);
-//            projectLinesDto.setMaterialValue(((Double) tempResult[i++]).doubleValue());
-//            projectLinesDto.setTotalWeight(((Double) tempResult[i++]).doubleValue());
-//            projectLinesDto.setCommissionPercentage(((Double) tempResult[i++]).doubleValue());
-//            projectLinesDto.setTurnoverPercentage(((Double) tempResult[i++]).doubleValue());
             projectLinesDto.setMaterialValue(((Double) tempResult[i++]));
             projectLinesDto.setTotalWeight(((Double) tempResult[i++]));
             projectLinesDto.setCommissionPercentage(((Double) tempResult[i++]));

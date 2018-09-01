@@ -26,20 +26,24 @@ import java.util.TreeMap;
 import static pl.kostrowski.doka.jzwroty.koconfig.ReadExternalProperties.getFileSaveFolder;
 
 @Service
-public class Creator {
+public class WynikiCreator {
 
-    private final static Logger LOG = LoggerFactory.getLogger(Creator.class);
+    private final static Logger LOG = LoggerFactory.getLogger(WynikiCreator.class);
     private final int FIRST_ROW_WITH_DATA = 10;
     private final int FIRST_COLUMN = 0;
-    private final int LAST_COLUMN = 10;
+    private final int LAST_COLUMN = 12;
     private final int SHEET_NAME_MAX_LENGTH = 16;
+    private final String RESULT_PREFIX = "wynik_";
 
+
+    private CustomQueries customQueries;
+    private SalesmanDao salesmanDao;
 
     @Autowired
-    CustomQueries customQueries;
-
-    @Autowired
-    SalesmanDao salesmanDao;
+    public WynikiCreator(CustomQueries customQueries, SalesmanDao salesmanDao) {
+        this.customQueries = customQueries;
+        this.salesmanDao = salesmanDao;
+    }
 
     public void createResultFile(String folderName) {
 
@@ -53,7 +57,7 @@ public class Creator {
             if (salesmanByBranch.containsKey(StringUtils.chomp(salesmanDb.getBranchName()))) {
                 salesmanByBranch.get(salesmanDb.getBranchName()).add(salesmanDb);
             } else {
-                List<SalesmanDb> tmpSDB = new LinkedList<SalesmanDb>();
+                List<SalesmanDb> tmpSDB = new LinkedList<>();
                 tmpSDB.add(salesmanDb);
                 salesmanByBranch.put(StringUtils.chomp(salesmanDb.getBranchName()), tmpSDB);
             }
@@ -61,7 +65,7 @@ public class Creator {
 
         for (Map.Entry<String, List<SalesmanDb>> entry : salesmanByBranch.entrySet()) {
 
-            String fileName = entry.getKey() + ".xlsx";
+            String fileName = RESULT_PREFIX + entry.getKey() + ".xlsx";
             LOG.info("Tworzę plik wynikowy " + fileName);
             Workbook wb = new XSSFWorkbook();
             List<SalesmanDb> salesmanFromBranch = entry.getValue();
@@ -93,6 +97,8 @@ public class Creator {
                 titleRow2.createCell(colNum++).setCellValue("Nazwa Klienta");
                 titleRow2.createCell(colNum++).setCellValue("Numer Projektu");
                 titleRow2.createCell(colNum++).setCellValue("Nazwa Projektu");
+                titleRow2.createCell(colNum++).setCellValue("Nr Budowy");
+                titleRow2.createCell(colNum++).setCellValue("Nazwa Budowy");
                 titleRow2.createCell(colNum++).setCellValue("Udział w marży");
                 titleRow2.createCell(colNum++).setCellValue("Udział w obrocie");
                 titleRow2.createCell(colNum++).setCellValue("Kod grupy");
@@ -104,16 +110,26 @@ public class Creator {
                 int rownNum = FIRST_ROW_WITH_DATA;
 
                 String projNumber = null;
+                String siteNumber = null;
 
                 for (ProjectLinesDto projectLinesDto : linesForSalesman) {
 
                     if (projNumber == null) {
                         projNumber = projectLinesDto.getProjectNumber();
                     }
+                    if (siteNumber == null) {
+                        siteNumber = projectLinesDto.getSiteNumber();
+                    }
 
-                    //Pusty wiersz między projektami
+                    //Pusty wiersz między budowami
                     if (!projectLinesDto.getProjectNumber().equals(projNumber)) {
                         projNumber = projectLinesDto.getProjectNumber();
+                        rownNum++;
+                    }
+
+                    //Pusty wiersz między projektami
+                    if (!projectLinesDto.getSiteNumber().equals(siteNumber)) {
+                        siteNumber = projectLinesDto.getSiteNumber();
                         rownNum++;
                     }
 
@@ -126,6 +142,9 @@ public class Creator {
 
                     row.createCell(colNum++).setCellValue(projectLinesDto.getProjectNumber());
                     row.createCell(colNum++).setCellValue(projectLinesDto.getProjectName());
+
+                    row.createCell(colNum++).setCellValue(projectLinesDto.getSiteNumber());
+                    row.createCell(colNum++).setCellValue(projectLinesDto.getSiteName());
 
                     row.createCell(colNum++).setCellValue(projectLinesDto.getCommissionPercentage());
                     row.createCell(colNum++).setCellValue(projectLinesDto.getTurnoverPercentage());

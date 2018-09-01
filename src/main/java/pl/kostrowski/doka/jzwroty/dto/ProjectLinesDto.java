@@ -10,6 +10,8 @@ public class ProjectLinesDto {
     String customerName;
     String projectNumber;
     String projectName;
+    String siteNumber;
+    String siteName;
     String mainProductGroup;
     String mainProductGroupName;
     Double materialValue;

@@ -10,18 +10,18 @@ import pl.kostrowski.doka.jzwroty.service.persist.SaveAllExcelDataToDb;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class CreatorTest {
+public class WynikiCreatorTest {
 
     @Autowired
     SaveAllExcelDataToDb saveAllExcelDataToDb;
 
     @Autowired
-    Creator creator;
+    WynikiCreator wynikiCreator;
 
-    @Test()
+    @Test(expected = Test.None.class)
     public void newFileCreationTest() {
         saveAllExcelDataToDb.convertExcelToDb("20180831");
-        creator.createResultFile("20180831");
+        wynikiCreator.createResultFile("20180831");
     }
 
 }

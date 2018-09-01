@@ -32,6 +32,7 @@ public class ReadExternalProperties {
     private final static String PROJECT_FILE_NAME = "projects.file.name";
     private final static String PROJECT_SHEET_NAME = "projects.sheet.name";
 
+    private final static String RESULT_SHEET_NAME = "result.sheet.name";
 
     static {
         try (FileInputStream file = new FileInputStream(PATH_TO_PROPERTIES_FILE + PROPERTIES_FILE_NAME)) {
@@ -85,5 +86,9 @@ public class ReadExternalProperties {
 
     public static String getProjectFileName() {
         return externalProperties.getProperty(PROJECT_FILE_NAME);
+    }
+
+    public static String getResultSheetName() {
+        return externalProperties.getProperty(RESULT_SHEET_NAME);
     }
 }

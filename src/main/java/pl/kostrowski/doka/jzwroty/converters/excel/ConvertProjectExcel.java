@@ -44,9 +44,6 @@ public class ConvertProjectExcel {
 			String rentalProjectNameTmp = parseStringFromCell(currentRow.getCell(columnNumbers.get("rentalProjectName")));
 			result.setRentalProjectName(rentalProjectNameTmp);
 
-			String jobSiteNumberTmp = parseStringFromCell(currentRow.getCell(columnNumbers.get("jobSiteNumber")));
-			result.setJobSiteNumber(jobSiteNumberTmp);
-
 			String customerNumberTmp = parseStringFromCell(currentRow.getCell(columnNumbers.get("customerNumber")));
 			result.setCustomerNumber(customerNumberTmp);
 
