@@ -41,7 +41,7 @@ public class ToDiscosCreator {
 
     private final Map<String, Integer> columnMappings = MyMappings.getInstance().getResultColumnMapping();
 
-    FolderUtils folderUtils;
+    private FolderUtils folderUtils;
 
     @Autowired
     public ToDiscosCreator(FolderUtils folderUtils) {

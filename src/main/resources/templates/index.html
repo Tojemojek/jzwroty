@@ -10,11 +10,45 @@
 <div class="container">
 
     <h2></h2>
-    <h2>Witaj w jZwrotach!</h2>
-    <h3>Które raczej nie odmienią Twojego życia</h3>
+    <h4>Witaj w jZwrotach, Które raczej nie odmienią Twojego życia!</h4>
+    <h3></h3>
+
+    <div th:if="${not #lists.isEmpty(notatki)}">
+        <h4 th:each="info: ${notatki}" th:text="${info}"/>
+    </div>
 
 </div>
 
+<div class="container">
+    <h2>Foldery z danymi</h2>
+    <div th:if="${not #lists.isEmpty(subFolders)}">
+        <table class="table table-striped">
+            <tr>
+                <th>Nazwa folderu</th>
+                <th>Uwagi (na razie puste)</th>
+                <th>Zrób plik dla handlowców</th>
+                <th>Zrób plik do Discos</th>
+            </tr>
+            <tr th:each="pos : ${subFolders}">
+                <td th:text="${pos.getName()}"></td>
+                <td th:text="${'Tu będzie waldacja - ale na to trzeba jeszcze poczekać'}"></td>
+                <td>
+                    <form class="form-inline" th:action="@{/create/salesman}" method="POST">
+                        <input type="hidden" th:value="${pos.getName()}" th:name="folderName">
+                        <button type="submit" class="btn btn-info">DLA HANDLOWCÓW</button>
+                    </form>
+                </td>
+                <td>
+                    <form class="form-inline" th:action="@{/create/discos}" method="POST">
+                        <input type="hidden" th:value="${pos.getName()}" th:name="folderName">
+                        <button type="submit" class="btn btn-danger">WSAD DISCOS</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+        </span>
+    </div>
+</div>
 <th:block th:include="layout/footer"></th:block>
 </body>
 
